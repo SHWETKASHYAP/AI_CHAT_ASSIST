@@ -1,0 +1,28 @@
+1. Why http.createServer(app)? (Interview Tip)
+
+--> An interviewer might ask: "Why didn't you just use app.listen?" Answer: Express is great for     HTTP requests (like GET/POST),       butWebSockets use a different protocol. By wrapping Express in the http module, we create a server that can handle both standard web traffic and the "always-on" connection that Socket.io requires.
+
+2. Why socket.io-client?
+
+--> In a regular tutorial, you’d use fetch or axios. But fetch is a one-way street: the client asks, the server answers. WebSockets are a two-way highway: once the connection is open, the server can send a message to the client without the client even asking!
+
+3. What is socket.on vs socket.emit?
+
+--> emit: "Throwing" a ball (sending data).
+--> on: "Catching" a ball (receiving data).
+
+4. Deep Dive: setChatLog((prev) => [...prev, data]);
+
+This is a core React concept called Functional State Updates.
+
+Where did prev come from?
+In React, when you call a state-setter function (like setChatLog), React automatically passes the current version of that state into the function. You don't have to define prev anywhere; React provides it for you. You could name it oldState or x, but prev (short for previous) is the industry standard.
+
+What does the line do?
+Imagine your chatLog is an array of messages: ["Hello", "Hi"].
+
+prev: This is the existing array: ["Hello", "Hi"].
+
+...prev: This is the Spread Operator. It "unpacks" the old array. It's like taking the messages out of their box.
+
+[...prev, data]: This creates a brand new box (array), puts the unpacked old messages inside, and then adds the new data (the new message) at the end.

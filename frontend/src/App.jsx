@@ -40,11 +40,31 @@ function App() {
       
       {/* The Chat Window */}
       <div style={{ border: "1px solid #ccc", height: "300px", overflowY: "scroll", marginBottom: "10px", padding: "10px" }}>
-        {chatLog.map((msg, index) => (
-          <div key={index} style={{ marginBottom: "10px" }}>
-            <strong>User:</strong> {msg.text} <small>({msg.time})</small>
-          </div>
-        ))}
+        {chatLog.map((msg, index) => {
+
+          const isPositive = msg.sentiment.includes("Positive");
+          const isNegative = msg.sentiment.includes("Negative");
+          // Define a color based on sentiment
+
+          const bgColor = 
+            isPositive ? "#6bca81" : 
+            isNegative ? "#f03d4c" : 
+            "#3075ff";
+
+        return (
+          <div key={index} style={{ 
+            backgroundColor: bgColor, 
+            padding: "8px", 
+            borderRadius: "8px", 
+            marginBottom: "10px",
+            transition: "background-color 0.5s ease" // Smooth color change!
+    }}>
+          <strong>User:</strong> {msg.text} 
+         <br />
+            <small style={{ fontSize: "10px" }}> {msg.sentiment} | {msg.time}</small>
+        </div>
+        );
+      })}
       </div>
 
       {/* Input Area */}
